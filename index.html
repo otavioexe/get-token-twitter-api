@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Exibição do oauth_verifier</title>
+  <title>Token de segurança</title>
   <script>
     function extractVerifier() {
       var url = window.location.href;
@@ -26,9 +26,9 @@
   </script>
 </head>
 <body onload="extractVerifier()">
-  <h1>oauth_verifier</h1>
+  <h1>Copie o código de verificação abaixo e cole na aplicação para autenticar.</h1>
   <p id="verifier"></p>
-  <button onclick="copyVerifier()">Copiar Verifier</button>
+  <button onclick="copyVerifier()">Copiar código</button>
   
   <script>
     function copyVerifier() {
@@ -50,7 +50,7 @@
       document.body.removeChild(tempTextArea);
       
       // Exibe uma mensagem de confirmação
-      alert('O verifier foi copiado para a área de transferência!');
+      alert('O código foi copiado para a área de transferência!');
     }
   </script>
 </body>
