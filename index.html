@@ -1,11 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Obter Verifier</title>
+  <title>Exibição do oauth_verifier</title>
+  <script>
+    function extractVerifier() {
+      var url = window.location.href;
+      var verifier = getUrlParameter(url, 'oauth_verifier');
+      
+      if (verifier) {
+        document.getElementById('verifier').textContent = verifier;
+      }
+    }
+    
+    // Função auxiliar para extrair parâmetros da URL
+    function getUrlParameter(url, name) {
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+      var results = regex.exec(url);
+      
+      if (!results) return null;
+      if (!results[2]) return '';
+      
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+  </script>
 </head>
-<body>
-    <h1>Obter Verifier</h1>
-    <p>O Verifier é:</p>
-    <input type="text" value="{{ verifier }}" readonly>
+<body onload="extractVerifier()">
+  <h1>oauth_verifier</h1>
+  <p id="verifier"></p>
+  <button onclick="copyVerifier()">Copiar Verifier</button>
+  
+  <script>
+    function copyVerifier() {
+      var verifier = document.getElementById('verifier').textContent;
+      
+      // Cria um elemento de área de texto temporário
+      var tempTextArea = document.createElement('textarea');
+      tempTextArea.value = verifier;
+      document.body.appendChild(tempTextArea);
+      
+      // Seleciona o conteúdo da área de texto temporária
+      tempTextArea.select();
+      tempTextArea.setSelectionRange(0, 99999); // Para dispositivos móveis
+      
+      // Copia o conteúdo da área de texto
+      document.execCommand('copy');
+      
+      // Remove o elemento de área de texto temporário
+      document.body.removeChild(tempTextArea);
+      
+      // Exibe uma mensagem de confirmação
+      alert('O verifier foi copiado para a área de transferência!');
+    }
+  </script>
 </body>
 </html>
